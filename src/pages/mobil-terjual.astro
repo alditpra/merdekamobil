@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CarCard from '../components/CarCard.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { getSoldCars } from '../utils/fetchData';
+
+const cars = await getSoldCars();
+---
+
+<Layout 
+ title="Mobil Terjual" 
+ description="Lihat mobil-mobil yang telah terjual di Merdeka Mobil Purwokerto. Testimoni kepuasan pelanggan kami."
+>
+ <Navigation />
+ 
+ <main class="min-h-screen py-12">
+ <div class="container-custom">
+ <Breadcrumbs items={[
+ { label: 'Home', href: '/' },
+ { label: 'Mobil Terjual', href: '/mobil-terjual' }
+ ]} />
+ 
+ <div class="mb-12">
+ <h1 class="text-4xl md:text-5xl font-black mb-4 text-shadow">Mobil Terjual</h1>
+ <p class="text-lg text-neutral-600 dark:text-neutral-400 font-medium">
+ {cars.length}+ mobil telah menemukan pemilik baru yang bahagia
+ </p>
+ </div>
+ 
+ <!-- Cars Grid -->
+ {cars.length > 0 ? (
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+ {cars.map(car => (
+ <CarCard car={car} />
+ ))}
+ </div>
+ ) : (
+ <EmptyState 
+ message="Belum ada mobil terjual" 
+ icon="info"
+ />
+ )}
+ </div>
+ </main>
+ 
+ <Footer />
+ <WhatsAppButton />
+</Layout>

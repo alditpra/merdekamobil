@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CarCard from '../components/CarCard.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { getAvailableCars } from '../utils/fetchData';
+
+const cars = await getAvailableCars();
+
+export async function getStaticPaths() {
+ return [{ params: {} }];
+}
+---
+
+<Layout 
+ title="Mobil Tersedia" 
+ description="Jelajahi koleksi mobil bekas berkualitas di Merdeka Mobil Purwokerto. Harga terbaik, kondisi terjamin."
+>
+ <Navigation />
+ 
+ <main class="min-h-screen py-12">
+ <div class="container-custom">
+ <Breadcrumbs items={[
+ { label: 'Home', href: '/' },
+ { label: 'Mobil Tersedia', href: '/mobil-tersedia' }
+ ]} />
+ 
+ <div class="mb-12">
+ <h1 class="text-4xl md:text-5xl font-black mb-4 text-shadow">Mobil Tersedia</h1>
+ <p class="text-lg text-neutral-600 dark:text-neutral-400 font-medium">
+ Menampilkan {cars.length} mobil tersedia untuk Anda
+ </p>
+ </div>
+ 
+ <!-- Cars Grid -->
+ {cars.length > 0 ? (
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in">
+ {cars.map((car, index) => (
+ <div class={`animate-fade-in-up stagger-${(index % 6) + 1}`}>
+ <CarCard car={car} />
+ </div>
+ ))}
+ </div>
+ ) : (
+ <EmptyState 
+ message="Belum ada mobil tersedia" 
+ icon="car"
+ />
+ )}
+ </div>
+ </main>
+ 
+ <Footer />
+ <WhatsAppButton />
+</Layout>

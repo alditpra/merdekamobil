@@ -1,0 +1,6 @@
+# Created by Vercel CLI
+.vercel
+.env*.local
+
+# Keep .env.example
+!.env.example

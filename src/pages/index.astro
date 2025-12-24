@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Hero from '../components/Hero.astro';
+import FeaturedCars from '../components/FeaturedCars.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { SITE_INFO } from '../utils/constants';
+import { fetchCars } from '../utils/fetchData';
+
+const allCars = await fetchCars();
+const availableCars = allCars.filter(car => car.status === 'available');
+const soldCars = allCars.filter(car => car.status === 'sold');
+---
+
+<Layout title={SITE_INFO.name} description={SITE_INFO.description}>
+  <main>
+    <Hero availableCars={availableCars.length} soldCars={soldCars.length} />
+    <FeaturedCars cars={allCars} limit={6} />
+    <WhyChooseUs />
+    <Testimonials />
+  </main>
+  
+  <WhatsAppButton />
+</Layout>

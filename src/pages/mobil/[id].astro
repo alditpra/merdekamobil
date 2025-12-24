@@ -1,0 +1,274 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { fetchCars, getCarById } from '../../utils/fetchData';
+import { formatPrice, formatMileage, formatDate, generateWhatsAppURL } from '../../utils/formatters';
+import { getCarImages } from '../../utils/imageUtils';
+import { convertYouTubeUrl } from '../../utils/videoUtils';
+import { WHATSAPP_NUMBER } from '../../utils/constants';
+
+export async function getStaticPaths() {
+ const cars = await fetchCars();
+ return cars.map(car => ({
+ params: { id: car.id },
+ props: { car }
+ }));
+}
+
+const { car } = Astro.props;
+const images = getCarImages(car);
+const videoEmbedUrl = car.video_url ? convertYouTubeUrl(car.video_url) : null;
+const waUrl = generateWhatsAppURL(WHATSAPP_NUMBER, car);
+
+// Get recommended cars (same brand or similar price)
+const allCars = await fetchCars();
+const recommendedCars = allCars
+ .filter(c => 
+ c.id !== car.id && 
+ c.status === 'available' &&
+ (c.brand === car.brand || Math.abs(c.price - car.price) < car.price * 0.3)
+ )
+ .slice(0, 3);
+---
+
+<Layout
+ title={`${car.brand} ${car.model} ${car.year}`}
+ description={`${car.brand} ${car.model} ${car.year} bekas di Purwokerto. Harga ${formatPrice(car.price)}. ${car.description}`}
+ ogImage={images[0]}
+>
+ <Navigation />
+ 
+ <main class="min-h-screen py-8">
+ <div class="container-custom">
+ <Breadcrumbs items={[
+ { label: 'Home', href: '/' },
+ { label: 'Mobil Tersedia', href: '/mobil-tersedia' },
+ { label: `${car.brand} ${car.model}`, href: `/mobil/${car.id}` }
+ ]} />
+ 
+ <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+ <!-- Main Content -->
+ <div class="lg:col-span-2 space-y-6">
+ <!-- Image Gallery -->
+ <div class="glass-card p-4">
+ <div class="aspect-[16/10] bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-4">
+ <img
+ id="main-image"
+ src={images[0]}
+ alt={`${car.brand} ${car.model} ${car.year}`}
+ class="w-full h-full object-cover"
+ onerror="this.src='/placeholder-car.svg'"
+ />
+ </div>
+ 
+ {images.length > 1 && (
+ <div class="grid grid-cols-5 gap-2">
+ {images.map((img, i) => (
+ <button
+ class="aspect-[4/3] rounded-lg overflow-hidden border-2 border-transparent hover:border-primary-500 transition-colors"
+ onclick={`document.getElementById('main-image').src='${img}'`}
+ >
+ <img
+ src={img}
+ alt={`${car.brand} ${car.model} foto ${i + 1}`}
+ class="w-full h-full object-cover"
+ loading="lazy"
+ />
+ </button>
+ ))}
+ </div>
+ )}
+ </div>
+ 
+ <!-- Video -->
+ {videoEmbedUrl && (
+ <div class="glass-card p-4">
+ <h3 class="font-bold text-lg mb-4">Video Review</h3>
+ <div class="aspect-video rounded-lg overflow-hidden">
+ <iframe
+ src={videoEmbedUrl}
+ title="Video Review"
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+ allowfullscreen
+ class="w-full h-full"
+ ></iframe>
+ </div>
+ </div>
+ )}
+ 
+ <!-- Description -->
+ <div class="glass-card p-6">
+ <h2 class="font-bold text-xl mb-4">Deskripsi</h2>
+ <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed">
+ {car.description}
+ </p>
+ </div>
+ 
+ <!-- Features -->
+ {car.features.length > 0 && (
+ <div class="glass-card p-6">
+ <h2 class="font-bold text-xl mb-4">Fitur Unggulan</h2>
+ <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+ {car.features.map(feature => (
+ <div class="flex items-center gap-2 text-sm">
+ <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+ </svg>
+ <span>{feature}</span>
+ </div>
+ ))}
+ </div>
+ </div>
+ )}
+ </div>
+ 
+ <!-- Sidebar -->
+ <div class="space-y-6">
+ <!-- Title & Price -->
+ <div class="glass-card p-6 sticky top-24">
+ <div class="mb-4">
+ <h1 class="text-2xl md:text-3xl font-bold mb-2">
+ {car.brand} {car.model}
+ </h1>
+ <p class="text-neutral-600 dark:text-neutral-400">
+ {car.year}
+ </p>
+ </div>
+ 
+ <div class="mb-6">
+ <div class="text-3xl font-bold text-accent-600 dark:text-accent-400 mb-1">
+ {formatPrice(car.price)}
+ </div>
+ {car.status === 'sold' && car.sold_date && (
+ <div class="badge-sold inline-block">
+ Terjual pada {formatDate(car.sold_date)}
+ </div>
+ )}
+ </div>
+ 
+ <!-- Specs -->
+ <div class="space-y-3 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-700">
+ <div class="flex justify-between">
+ <span class="text-neutral-600 dark:text-neutral-400">Tahun</span>
+ <span class="font-semibold">{car.year}</span>
+ </div>
+ <div class="flex justify-between">
+ <span class="text-neutral-600 dark:text-neutral-400">Kilometer</span>
+ <span class="font-semibold">{formatMileage(car.mileage)}</span>
+ </div>
+ <div class="flex justify-between">
+ <span class="text-neutral-600 dark:text-neutral-400">Transmisi</span>
+ <span class="font-semibold">{car.transmission}</span>
+ </div>
+ <div class="flex justify-between">
+ <span class="text-neutral-600 dark:text-neutral-400">Bahan Bakar</span>
+ <span class="font-semibold">{car.fuel}</span>
+ </div>
+ <div class="flex justify-between">
+ <span class="text-neutral-600 dark:text-neutral-400">Warna</span>
+ <span class="font-semibold">{car.color}</span>
+ </div>
+ </div>
+ 
+ <!-- CTA Buttons -->
+ {car.status === 'available' ? (
+ <div class="space-y-3">
+ <a
+ href={waUrl}
+ target="_blank"
+ rel="noopener noreferrer"
+ class="btn-accent w-full text-center block"
+ >
+ <span class="flex items-center justify-center gap-2">
+ <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+ <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+ </svg>
+ Tanya Ketersediaan
+ </span>
+ </a>
+ <button class="btn-outline w-full" id="share-button">
+ Bagikan
+ </button>
+ </div>
+ ) : (
+ <div class="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 text-center">
+ <p class="text-neutral-600 dark:text-neutral-400 mb-2">
+ Mobil ini sudah terjual
+ </p>
+ <a href="/mobil-tersedia" class="btn-primary inline-block">
+ Lihat Mobil Lain
+ </a>
+ </div>
+ )}
+ 
+ {car.date_added && (
+ <div class="mt-4 text-xs text-neutral-500 dark:text-neutral-400 text-center">
+ Ditambahkan {formatDate(car.date_added)}
+ </div>
+ )}
+ </div>
+ </div>
+ </div>
+ 
+ <!-- Recommended Cars -->
+ {recommendedCars.length > 0 && (
+ <div class="mt-16">
+ <h2 class="text-2xl font-bold mb-6">Mobil Serupa</h2>
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+ {recommendedCars.map(recCar => (
+ <div class="glass-card-hover overflow-hidden">
+ <a href={`/mobil/${recCar.id}`}>
+ <div class="aspect-[4/3] bg-neutral-100 dark:bg-neutral-800">
+ <img
+ src={getCarImages(recCar)[0] || '/placeholder-car.svg'}
+ alt={`${recCar.brand} ${recCar.model}`}
+ class="w-full h-full object-cover"
+ loading="lazy"
+ />
+ </div>
+ <div class="p-4">
+ <h3 class="font-bold mb-1">{recCar.brand} {recCar.model}</h3>
+ <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-2">{recCar.year}</p>
+ <p class="text-lg font-bold text-accent-600 dark:text-accent-400">
+ {formatPrice(recCar.price, true)}
+ </p>
+ </div>
+ </a>
+ </div>
+ ))}
+ </div>
+ </div>
+ )}
+ </div>
+ </main>
+ 
+ <Footer />
+ <WhatsAppButton />
+</Layout>
+
+<script>
+ // Share functionality
+ const shareButton = document.getElementById('share-button');
+ shareButton?.addEventListener('click', async () => {
+ const shareData = {
+ title: document.title,
+ text: document.querySelector('meta[name="description"]')?.getAttribute('content') || '',
+ url: window.location.href
+ };
+ 
+ if (navigator.share) {
+ try {
+ await navigator.share(shareData);
+ } catch (err) {
+ console.log('Share cancelled');
+ }
+ } else {
+ // Fallback: copy link
+ navigator.clipboard.writeText(window.location.href);
+ alert('Link berhasil disalin!');
+ }
+ });
+</script>
