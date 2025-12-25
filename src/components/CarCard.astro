@@ -27,28 +27,28 @@ const isNew = car.date_added && (new Date().getTime() - new Date(car.date_added)
     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
     
     <!-- Badges -->
-    <div class="absolute top-3 left-3 flex flex-wrap gap-2">
+    <div class="absolute top-2 sm:top-3 left-2 sm:left-3 flex flex-wrap gap-1.5 sm:gap-2">
       {isNew && car.status === 'available' && (
-        <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg">
+        <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg">
           BARU
         </span>
       )}
       {car.status === 'sold' && (
-        <span class="px-3 py-1 text-xs font-bold rounded-full bg-neutral-800/90 text-white">
+        <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold rounded-full bg-neutral-800/90 text-white">
           TERJUAL
         </span>
       )}
       {car.featured && car.status === 'available' && (
-        <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg">
+        <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold rounded-full bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg">
           ⭐ PILIHAN
         </span>
       )}
     </div>
 
     <!-- Price Tag on Image -->
-    <div class="absolute bottom-3 left-3 right-3">
-      <div class="inline-block px-4 py-2 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg">
-        <span class="text-xl font-black text-green-600 dark:text-green-500">
+    <div class="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3">
+      <div class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg">
+        <span class="text-lg sm:text-xl font-black text-green-600 dark:text-green-500">
           {formatPrice(car.price, true)}
         </span>
       </div>
@@ -56,7 +56,7 @@ const isNew = car.date_added && (new Date().getTime() - new Date(car.date_added)
   </div>
   
   <!-- Content -->
-  <div class="p-5 space-y-4 bg-white dark:bg-neutral-800 rounded-b-2xl border border-t-0 border-neutral-200 dark:border-neutral-700">
+  <div class="p-4 sm:p-5 space-y-3 sm:space-y-4 bg-white dark:bg-neutral-800 rounded-b-2xl border border-t-0 border-neutral-200 dark:border-neutral-700">
     <!-- Title -->
     <a href={`/mobil/${car.id}`} class="block group/title">
       <h3 class="font-bold text-lg text-neutral-900 dark:text-white line-clamp-1 group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 transition-colors">
