@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-import WhatsAppButton from '../components/WhatsAppButton.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CarCard from '../components/CarCard.astro';
 import EmptyState from '../components/EmptyState.astro';
@@ -31,7 +30,7 @@ export async function getStaticPaths() {
  <div class="mb-12">
  <h1 class="text-4xl md:text-5xl font-black mb-4 text-shadow">Mobil Tersedia</h1>
  <p class="text-lg text-neutral-600 dark:text-neutral-400 font-medium">
- Menampilkan {cars.length} mobil tersedia untuk Anda
+ Menampilkan {cars.length} mobil yang ready stock
  </p>
  </div>
  
@@ -54,5 +53,4 @@ export async function getStaticPaths() {
  </main>
  
  <Footer />
- <WhatsAppButton />
 </Layout>

@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
-import WhatsAppButton from '../../components/WhatsAppButton.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { fetchCars, getCarById } from '../../utils/fetchData';
 import { formatPrice, formatMileage, formatDate, generateWhatsAppURL } from '../../utils/formatters';
@@ -139,7 +138,7 @@ const recommendedCars = allCars
  </div>
  
  <div class="mb-6">
- <div class="text-3xl font-bold text-red-600 dark:text-red-400 mb-1">
+ <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-1">
  {formatPrice(car.price)}
  </div>
  {car.status === 'sold' && car.sold_date && (
@@ -180,7 +179,7 @@ const recommendedCars = allCars
  href={waUrl}
  target="_blank"
  rel="noopener noreferrer"
- class="btn-accent w-full text-center block"
+ class="w-full text-center block py-3 px-6 rounded-xl bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold shadow-lg transition-all"
  >
  <span class="flex items-center justify-center gap-2">
  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -232,7 +231,7 @@ const recommendedCars = allCars
  <div class="p-4">
  <h3 class="font-bold mb-1">{recCar.brand} {recCar.model}</h3>
  <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-2">{recCar.year}</p>
- <p class="text-lg font-bold text-red-600 dark:text-red-400">
+ <p class="text-lg font-bold text-green-600 dark:text-green-400">
  {formatPrice(recCar.price, true)}
  </p>
  </div>
@@ -246,9 +245,7 @@ const recommendedCars = allCars
  </main>
  
  <Footer />
- <WhatsAppButton />
 </Layout>
-
 <script>
  // Share functionality
  const shareButton = document.getElementById('share-button');
