@@ -1,0 +1,255 @@
+---
+// Navigation Component
+// Transparent on home (blends with Hero), solid on other pages
+import { SITE_INFO } from '../utils/constants';
+
+interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = false } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Beranda' },
+  { href: '/mobil-tersedia', label: 'Mobil Tersedia' },
+  { href: '/mobil-terjual', label: 'Terjual' },
+  { href: '/kontak', label: 'Kontak' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header 
+  class:list={[
+    'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+    isHome ? 'nav-transparent' : 'nav-solid'
+  ]}
+  id="main-nav"
+>
+  <div class="container-custom">
+    <nav class="flex items-center justify-between h-16 md:h-20">
+      
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-accent-500 to-primary-600 flex items-center justify-center shadow-lg group-hover:shadow-accent-500/30 transition-shadow">
+          <span class="text-xl md:text-2xl font-black text-white">M</span>
+        </div>
+        <div class="hidden sm:block">
+          <span class="font-bold text-lg md:text-xl nav-text">{SITE_INFO.name}</span>
+          <p class="text-xs nav-subtext -mt-0.5">Dealer Mobil Bekas</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-1">
+        {navLinks.map(link => (
+          <a 
+            href={link.href}
+            class:list={[
+              'px-4 py-2 rounded-lg font-medium transition-all duration-200',
+              currentPath === link.href 
+                ? 'nav-link-active' 
+                : 'nav-link'
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Right Side Actions -->
+      <div class="flex items-center gap-3">
+        <!-- WhatsApp CTA -->
+        <a 
+          href="https://wa.me/628158141112" 
+          target="_blank" 
+          rel="noopener"
+          class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold text-sm transition-colors shadow-lg hover:shadow-green-500/30"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
+
+        <!-- Dark Mode Toggle -->
+        <button 
+          id="theme-toggle" 
+          class="nav-icon-btn"
+          aria-label="Toggle dark mode"
+        >
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button 
+          id="mobile-menu-btn" 
+          class="md:hidden nav-icon-btn"
+          aria-label="Open menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 shadow-xl">
+    <div class="container-custom py-4 space-y-2">
+      {navLinks.map(link => (
+        <a 
+          href={link.href}
+          class:list={[
+            'block px-4 py-3 rounded-xl font-medium transition-colors',
+            currentPath === link.href 
+              ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400' 
+              : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a 
+        href="https://wa.me/628158141112" 
+        target="_blank" 
+        rel="noopener"
+        class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold transition-colors mt-4"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        </svg>
+        <span>Hubungi via WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Spacer for fixed nav (only on non-home pages) -->
+{!isHome && <div class="h-16 md:h-20"></div>}
+
+<style>
+  /* Transparent Navigation (Home - blends with Hero) */
+  .nav-transparent {
+    background: transparent;
+  }
+
+  .nav-transparent .nav-text {
+    @apply text-white;
+  }
+
+  .nav-transparent .nav-subtext {
+    @apply text-white/60;
+  }
+
+  .nav-transparent .nav-link {
+    @apply text-white/80 hover:text-white hover:bg-white/10;
+  }
+
+  .nav-transparent .nav-link-active {
+    @apply text-white bg-white/20 backdrop-blur-sm;
+  }
+
+  .nav-transparent .nav-icon-btn {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 transition-colors;
+  }
+
+  /* Solid Navigation (Scrolled or other pages) */
+  .nav-solid {
+    @apply bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md shadow-lg border-b border-neutral-200/50 dark:border-neutral-800/50;
+  }
+
+  .nav-solid .nav-text {
+    @apply text-neutral-900 dark:text-white;
+  }
+
+  .nav-solid .nav-subtext {
+    @apply text-neutral-500 dark:text-neutral-400;
+  }
+
+  .nav-solid .nav-link {
+    @apply text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20;
+  }
+
+  .nav-solid .nav-link-active {
+    @apply text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30;
+  }
+
+  .nav-solid .nav-icon-btn {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors;
+  }
+
+  /* Scrolled state for home page */
+  .nav-scrolled {
+    @apply bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md shadow-lg border-b border-neutral-200/50 dark:border-neutral-800/50;
+  }
+
+  .nav-scrolled .nav-text {
+    @apply text-neutral-900 dark:text-white;
+  }
+
+  .nav-scrolled .nav-subtext {
+    @apply text-neutral-500 dark:text-neutral-400;
+  }
+
+  .nav-scrolled .nav-link {
+    @apply text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20;
+  }
+
+  .nav-scrolled .nav-link-active {
+    @apply text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30;
+  }
+
+  .nav-scrolled .nav-icon-btn {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors;
+  }
+</style>
+
+<script is:inline>
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Dark mode toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  
+  themeToggle?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+
+  // Scroll effect for transparent nav (home page only)
+  const nav = document.getElementById('main-nav');
+  const isTransparent = nav?.classList.contains('nav-transparent');
+
+  if (isTransparent) {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        nav?.classList.add('nav-scrolled');
+        nav?.classList.remove('nav-transparent');
+      } else {
+        nav?.classList.remove('nav-scrolled');
+        nav?.classList.add('nav-transparent');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Check initial state
+  }
+</script>

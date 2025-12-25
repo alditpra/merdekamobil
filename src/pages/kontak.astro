@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
@@ -14,7 +15,9 @@ const waUrl = generateWhatsAppURL(WHATSAPP_NUMBER);
  description="Hubungi Merdeka Mobil Purwokerto untuk informasi lebih lanjut tentang mobil bekas berkualitas. Kami siap membantu Anda."
 >
  
- <main class="min-h-screen py-12">
+  <Navigation />
+  
+  <main class="min-h-screen py-12">
  <div class="container-custom">
  <Breadcrumbs items={[
  { label: 'Home', href: '/' },

@@ -28,6 +28,9 @@ export interface Settings {
     business_tagline: string;
     business_address: string;
     business_city: string;
+    promo_emoji?: string;
+    promo_text?: string;
+    promo_active?: string;
 }
 
 export interface CarFilters {

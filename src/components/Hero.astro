@@ -1,10 +1,19 @@
 ---
+import { fetchSettings } from '../utils/fetchData';
+
 interface Props {
   availableCars: number;
   soldCars: number;
 }
 
 const { availableCars } = Astro.props;
+
+// Fetch settings for promo
+const settings = await fetchSettings();
+// Promo tampil by default, kecuali promo_active = FALSE
+const isPromoActive = settings.promo_active !== 'FALSE' && settings.promo_active !== 'false' && settings.promo_active !== '0';
+const promoEmoji = settings.promo_emoji || '🎄';
+const promoText = settings.promo_text || 'Promo Akhir Tahun - DP Mulai 15 Juta!';
 
 // Social Media Links
 const socialMedia = {
@@ -37,7 +46,7 @@ const services = [
 ];
 ---
 
-<section class="hero-section relative overflow-hidden min-h-[90vh] flex items-center">
+<section class="hero-section relative overflow-hidden min-h-screen flex items-center">
   <!-- Background Elements -->
   <div class="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-neutral-900"></div>
   <div class="absolute inset-0 opacity-30">
@@ -53,12 +62,14 @@ const services = [
       
       <!-- Left Content -->
       <div class="space-y-6 animate-fade-in">
-        <!-- Promo Badge -->
-        <div class="promo-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent-600 to-accent-500 text-white text-sm font-semibold shadow-lg">
-          <span class="text-lg">🎄</span>
-          <span>Promo Akhir Tahun - DP Mulai 15 Juta!</span>
-          <span class="promo-shine"></span>
-        </div>
+        <!-- Promo Badge (Dynamic from Spreadsheet) -->
+        {isPromoActive && (
+          <div class="promo-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent-600 to-accent-500 text-white text-sm font-semibold shadow-lg">
+            <span class="text-lg">{promoEmoji}</span>
+            <span>{promoText}</span>
+            <span class="promo-shine"></span>
+          </div>
+        )}
 
         <!-- Main Heading -->
         <div class="space-y-4">
@@ -83,7 +94,7 @@ const services = [
           </div>
           <div class="w-px bg-white/20 hidden sm:block"></div>
           <div class="text-center">
-            <div class="text-3xl md:text-4xl font-black text-accent-400">✓</div>
+            <div class="text-3xl md:text-4xl font-black text-green-400">✓</div>
             <div class="text-sm text-white/60">Kualitas Terjamin</div>
           </div>
         </div>
@@ -199,24 +210,24 @@ const services = [
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {services.map((service, index) => (
           <div class={`glass-service p-5 md:p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-white/15 animate-fade-in-up stagger-${index + 1}`}>
-            <div class="w-12 h-12 rounded-lg bg-accent-500/20 flex items-center justify-center mb-4">
+            <div class="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center mb-4">
               {service.icon === 'swap' && (
-                <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                 </svg>
               )}
               {service.icon === 'buy' && (
-                <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
               )}
               {service.icon === 'check' && (
-                <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                 </svg>
               )}
               {service.icon === 'credit' && (
-                <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                 </svg>
               )}
@@ -227,6 +238,16 @@ const services = [
         ))}
       </div>
     </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+    <a href="#featured" class="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors group">
+      <span class="text-xs font-medium tracking-wider uppercase">Scroll</span>
+      <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </a>
   </div>
 </section>
 
