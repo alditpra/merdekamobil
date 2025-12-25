@@ -70,20 +70,24 @@ const isNew = car.date_added && (new Date().getTime() - new Date(car.date_added)
     <!-- Specs Grid -->
     <div class="grid grid-cols-3 gap-2">
       <div class="flex flex-col items-center p-2 rounded-lg bg-neutral-50 dark:bg-neutral-700/50">
-        <svg class="w-4 h-4 text-blue-500 mb-1" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm2 0h12v8H4V6z" clip-rule="evenodd"></path>
+        <!-- Speedometer/Gauge Icon for Mileage -->
+        <svg class="w-4 h-4 text-blue-500 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>
         <span class="text-xs font-medium text-neutral-700 dark:text-neutral-300">{formatMileage(car.mileage)}</span>
       </div>
       <div class="flex flex-col items-center p-2 rounded-lg bg-neutral-50 dark:bg-neutral-700/50">
-        <svg class="w-4 h-4 text-blue-500 mb-1" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+        <!-- Gear/Cog Icon for Transmission -->
+        <svg class="w-4 h-4 text-blue-500 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
         <span class="text-xs font-medium text-neutral-700 dark:text-neutral-300">{car.transmission}</span>
       </div>
       <div class="flex flex-col items-center p-2 rounded-lg bg-neutral-50 dark:bg-neutral-700/50">
-        <svg class="w-4 h-4 text-blue-500 mb-1" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path>
+        <!-- Fuel Pump Icon -->
+        <svg class="w-4 h-4 text-blue-500 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
         </svg>
         <span class="text-xs font-medium text-neutral-700 dark:text-neutral-300">{car.fuel}</span>
       </div>
