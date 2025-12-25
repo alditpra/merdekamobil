@@ -20,6 +20,7 @@ export interface Car {
     featured: boolean;
     sold_date?: string;
     date_added: string;
+    badge?: string; // Badge dinamis dari spreadsheet (PROMO, DP MURAH, dll)
 }
 
 export interface Settings {

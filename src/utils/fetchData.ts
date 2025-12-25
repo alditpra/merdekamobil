@@ -59,6 +59,7 @@ function parseCarData(row: any): Car {
         featured: row.featured === 'TRUE' || row.featured === 'true' || row.featured === '1',
         sold_date: row.sold_date || '',
         date_added: row.date_added || new Date().toISOString().split('T')[0],
+        badge: row.badge || '', // Badge dinamis dari spreadsheet
     };
 }
 

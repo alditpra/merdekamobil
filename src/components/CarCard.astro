@@ -9,7 +9,6 @@ export interface Props {
 
 const { car } = Astro.props;
 const mainImage = getCarPrimaryImage(car);
-const isNew = car.date_added && (new Date().getTime() - new Date(car.date_added).getTime()) < 7 * 24 * 60 * 60 * 1000;
 ---
 
 <div class="car-card group">
@@ -28,11 +27,6 @@ const isNew = car.date_added && (new Date().getTime() - new Date(car.date_added)
     
     <!-- Badges -->
     <div class="absolute top-2 sm:top-3 left-2 sm:left-3 flex flex-wrap gap-1.5 sm:gap-2">
-      {isNew && car.status === 'available' && (
-        <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg">
-          BARU
-        </span>
-      )}
       {car.status === 'sold' && (
         <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold rounded-full bg-neutral-800/90 text-white">
           TERJUAL
@@ -41,6 +35,11 @@ const isNew = car.date_added && (new Date().getTime() - new Date(car.date_added)
       {car.featured && car.status === 'available' && (
         <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold rounded-full bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg">
           ⭐ PILIHAN
+        </span>
+      )}
+      {car.badge && car.status === 'available' && (
+        <span class="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg">
+          {car.badge}
         </span>
       )}
     </div>
