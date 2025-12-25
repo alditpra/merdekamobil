@@ -68,7 +68,7 @@ const recommendedCars = allCars
  <div class="grid grid-cols-5 gap-2">
  {images.map((img, i) => (
  <button
- class="aspect-[4/3] rounded-lg overflow-hidden border-2 border-transparent hover:border-primary-500 transition-colors"
+ class="aspect-[4/3] rounded-lg overflow-hidden border-2 border-transparent hover:border-blue-500 transition-colors"
  onclick={`document.getElementById('main-image').src='${img}'`}
  >
  <img
@@ -139,7 +139,7 @@ const recommendedCars = allCars
  </div>
  
  <div class="mb-6">
- <div class="text-3xl font-bold text-accent-600 dark:text-accent-400 mb-1">
+ <div class="text-3xl font-bold text-red-600 dark:text-red-400 mb-1">
  {formatPrice(car.price)}
  </div>
  {car.status === 'sold' && car.sold_date && (
@@ -232,7 +232,7 @@ const recommendedCars = allCars
  <div class="p-4">
  <h3 class="font-bold mb-1">{recCar.brand} {recCar.model}</h3>
  <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-2">{recCar.year}</p>
- <p class="text-lg font-bold text-accent-600 dark:text-accent-400">
+ <p class="text-lg font-bold text-red-600 dark:text-red-400">
  {formatPrice(recCar.price, true)}
  </p>
  </div>
