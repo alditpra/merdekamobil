@@ -111,7 +111,7 @@ const currentPath = Astro.url.pathname;
           class:list={[
             'block px-4 py-3 rounded-xl font-medium transition-colors',
             currentPath === link.href 
-              ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400' 
+              ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400' 
               : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
           ]}
         >
@@ -176,15 +176,15 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-solid .nav-link {
-    @apply text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20;
+    @apply text-neutral-600 dark:text-neutral-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20;
   }
 
   .nav-solid .nav-link-active {
-    @apply text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30;
+    @apply text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/30;
   }
 
   .nav-solid .nav-icon-btn {
-    @apply w-10 h-10 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors;
+    @apply w-10 h-10 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors;
   }
 
   /* Scrolled state for home page */
@@ -201,15 +201,15 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-scrolled .nav-link {
-    @apply text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20;
+    @apply text-neutral-600 dark:text-neutral-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20;
   }
 
   .nav-scrolled .nav-link-active {
-    @apply text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30;
+    @apply text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/30;
   }
 
   .nav-scrolled .nav-icon-btn {
-    @apply w-10 h-10 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors;
+    @apply w-10 h-10 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors;
   }
 </style>
 
