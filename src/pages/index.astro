@@ -27,3 +27,8 @@ const soldCars = allCars.filter(car => car.status === 'sold');
   <Footer />
   <WhatsAppButton />
 </Layout>
+
+<script is:inline>
+  // Force light mode on home page
+  document.documentElement.classList.remove('dark');
+</script>

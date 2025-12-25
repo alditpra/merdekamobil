@@ -72,10 +72,10 @@ const currentPath = Astro.url.pathname;
           <span>WhatsApp</span>
         </a>
 
-        <!-- Dark Mode Toggle -->
+        <!-- Dark Mode Toggle (hidden on home page) -->
         <button 
           id="theme-toggle" 
-          class="nav-icon-btn"
+          class:list={["nav-icon-btn", isHome && "hidden"]}
           aria-label="Toggle dark mode"
         >
           <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
