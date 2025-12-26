@@ -59,9 +59,9 @@ if (testimonials.length === 0) {
     </div>
 
     <!-- Testimonials Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {testimonials.map((item) => (
-        <div class="testimonial-card group rounded-2xl overflow-hidden bg-white dark:bg-neutral-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {testimonials.map((item, index) => (
+        <div class="testimonial-card group rounded-2xl overflow-hidden bg-white dark:bg-neutral-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1" data-animate data-delay={(index % 6) + 1}>
           
           {/* Screenshot or Photo */}
           {(item.type === 'screenshot' || item.type === 'photo') && (
@@ -198,7 +198,7 @@ if (testimonials.length === 0) {
       <a 
         href="https://wa.me/628158141112?text=Halo, saya ingin berbagi testimoni tentang pembelian mobil di Merdeka Mobil" 
         target="_blank" 
-        rel="noopener"
+        rel="noopener noreferrer"
         class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold transition-colors shadow-lg hover:shadow-green-600/25 hover:-translate-y-0.5"
       >
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -294,27 +294,4 @@ if (testimonials.length === 0) {
   });
 </script>
 
-<style>
-  .testimonial-card {
-    animation: fadeInUp 0.5s ease-out forwards;
-    opacity: 0;
-  }
-  
-  .testimonial-card:nth-child(1) { animation-delay: 0ms; }
-  .testimonial-card:nth-child(2) { animation-delay: 100ms; }
-  .testimonial-card:nth-child(3) { animation-delay: 200ms; }
-  .testimonial-card:nth-child(4) { animation-delay: 300ms; }
-  .testimonial-card:nth-child(5) { animation-delay: 400ms; }
-  .testimonial-card:nth-child(6) { animation-delay: 500ms; }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
+

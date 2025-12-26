@@ -61,6 +61,19 @@ export default {
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],
             },
+            // Design Tokens for Consistency
+            spacing: {
+                'card': '1.5rem',      // Standard card padding (p-6)
+                'card-sm': '1.25rem',  // Small card padding (p-5)
+                'section': '4rem',     // Section padding
+                'section-lg': '6rem',  // Large section padding
+            },
+            borderRadius: {
+                'card': '1rem',        // rounded-2xl equivalent
+                'button': '0.75rem',   // rounded-xl equivalent  
+                'badge': '9999px',     // rounded-full for pills
+                'icon': '0.75rem',     // Icon containers - standardized to rounded-xl
+            },
             backgroundImage: {
                 'glass-light': 'linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.6) 100%)',
                 'glass-dark': 'linear-gradient(135deg, rgba(58, 37, 37, 0.75) 0%, rgba(58, 37, 37, 0.6) 100%)',
@@ -74,10 +87,12 @@ export default {
                 'glow-accent': '0 0 20px rgba(255, 0, 0, 0.3), 0 0 40px rgba(255, 0, 0, 0.1)',
                 'glow-secondary': '0 0 20px rgba(158, 42, 58, 0.3), 0 0 40px rgba(158, 42, 58, 0.1)',
             },
+            // Animation System - Single Source of Truth
+            // All common animations defined here, component-specific animations in their own files
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-out',
-                'fade-in-up': 'fadeInUp 0.6s ease-out',
-                'slide-up': 'slideUp 0.5s ease-out',
+                'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                'slide-up': 'slideUp 0.6s ease-out',
                 'scale-in': 'scaleIn 0.4s ease-out',
                 'glow-pulse': 'glowPulse 2s ease-in-out infinite',
                 'float': 'float 6s ease-in-out infinite',
@@ -92,7 +107,7 @@ export default {
                     '100%': { opacity: '1', transform: 'translateY(0)' },
                 },
                 slideUp: {
-                    '0%': { transform: 'translateY(30px)', opacity: '0' },
+                    '0%': { transform: 'translateY(20px)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' },
                 },
                 scaleIn: {
@@ -105,7 +120,7 @@ export default {
                 },
                 float: {
                     '0%, 100%': { transform: 'translateY(0px)' },
-                    '50%': { transform: 'translateY(-20px)' },
+                    '50%': { transform: 'translateY(-15px)' },
                 },
             },
             animationDelay: {

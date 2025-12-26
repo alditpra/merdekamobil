@@ -70,6 +70,28 @@ const fullTitle = title === SITE_INFO.name ? title : `${title} - ${SITE_INFO.nam
       }
       
       window.localStorage.setItem('theme', theme);
+
+      // Scroll-triggered animations using Intersection Observer
+      document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('[data-animate]');
+        
+        if (animatedElements.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animated');
+              // Optionally unobserve after animation (one-time animation)
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1, // Trigger when 10% of element is visible
+          rootMargin: '0px 0px -50px 0px' // Trigger slightly before element enters viewport
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+      });
     </script>
   </body>
 </html>

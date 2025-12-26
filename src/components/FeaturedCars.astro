@@ -25,7 +25,7 @@ const featuredCars = cars
 <section id="featured" class="py-16 lg:py-24 bg-neutral-50 dark:bg-neutral-900">
   <div class="container-custom">
     <!-- Section Header -->
-    <div class="text-center mb-12">
+    <div class="text-center mb-12 lg:mb-16">
       <span class="inline-block px-4 py-1.5 rounded-full bg-red-200 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-sm font-semibold mb-4">
         🚗 Pilihan Terbaik
       </span>
@@ -40,8 +40,10 @@ const featuredCars = cars
     <!-- Cars Grid -->
     {featuredCars.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        {featuredCars.map((car) => (
-          <CarCard car={car} />
+        {featuredCars.map((car, index) => (
+          <div data-animate data-delay={(index % 6) + 1}>
+            <CarCard car={car} />
+          </div>
         ))}
       </div>
     ) : (

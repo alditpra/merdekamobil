@@ -30,10 +30,10 @@ const waUrl = generateWhatsAppURL(WHATSAPP_NUMBER);
  </p>
  </div>
  
- <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
+ <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto" data-animate>
  <!-- Contact Form -->
  <div class="glass-card p-8 md:p-10">
- <h2 class="font-extrabold text-2xl mb-8">Kirim Pesan</h2>
+ <h2 class="font-bold text-2xl mb-8">Kirim Pesan</h2>
  <form id="contact-form" class="space-y-6">
  <div>
  <label for="name" class="block text-sm font-bold mb-2">Nama Lengkap</label>
@@ -43,7 +43,7 @@ const waUrl = generateWhatsAppURL(WHATSAPP_NUMBER);
  name="name"
  required
  class="input"
- placeholder="John Doe"
+ placeholder="Budi Santoso"
  />
  </div>
  
@@ -92,7 +92,7 @@ const waUrl = generateWhatsAppURL(WHATSAPP_NUMBER);
  </svg>
  </div>
  <div>
- <h3 class="font-extrabold text-lg mb-2">Telepon / WhatsApp</h3>
+ <h3 class="font-bold text-lg mb-2">Telepon / WhatsApp</h3>
  <a href={waUrl} target="_blank" rel="noopener noreferrer" class="text-green-600 dark:text-green-400 hover:underline font-semibold text-lg">
  0815-8141-112
  </a>
@@ -108,7 +108,7 @@ const waUrl = generateWhatsAppURL(WHATSAPP_NUMBER);
  </svg>
  </div>
  <div>
- <h3 class="font-extrabold text-lg mb-2">Lokasi</h3>
+ <h3 class="font-bold text-lg mb-2">Lokasi</h3>
  <p class="text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">
  Purwokerto<br/>
  Jawa Tengah, Indonesia
@@ -125,7 +125,7 @@ const waUrl = generateWhatsAppURL(WHATSAPP_NUMBER);
  </svg>
  </div>
  <div>
- <h3 class="font-extrabold text-lg mb-2">Jam Operasional</h3>
+ <h3 class="font-bold text-lg mb-2">Jam Operasional</h3>
  <p class="text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">
  Senin - Sabtu: 08:00 - 17:00<br/>
  Minggu: Tutup
