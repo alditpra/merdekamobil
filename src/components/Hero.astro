@@ -90,10 +90,10 @@ const services = [
         <!-- Main Heading -->
         <div class="space-y-4">
           <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
-            Temukan <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Mobil Impian</span> Anda
+            Jual Beli <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Mobil Bekas Berkualitas</span> di Purwokerto
           </h1>
           <p class="text-base sm:text-lg md:text-xl text-white/70 max-w-xl leading-relaxed mx-auto lg:mx-0">
-            Dealer mobil bekas terpercaya di Purwokerto. <strong class="text-white/90">10+ tahun pengalaman</strong> melayani pelanggan dengan sepenuh hati.
+            Dealer mobil bekas terpercaya dengan <strong class="text-white/90">10+ tahun pengalaman</strong>. Garansi mesin, dokumen lengkap, harga nego. Melayani Purwokerto, Banyumas & sekitarnya.
           </p>
         </div>
 
@@ -161,7 +161,7 @@ const services = [
       </div>
 
       <!-- Right Side - Trust Badges (No animation for LCP) -->
-      <div class="hidden lg:flex flex-col items-center justify-center space-y-8">
+      <div class="flex flex-col items-center justify-center space-y-8 mt-8 lg:mt-0">
         
         <!-- Main Trust Card -->
         <div class="trust-card p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 w-full max-w-sm">
@@ -172,7 +172,7 @@ const services = [
               <span class="text-6xl rocket-icon inline-block">🚀</span>
             </div>
             <p class="text-xl font-bold text-white">Sebuah Tranformasi</p>
-            <p class="text-white/80 text-sm mt-1">Dari Bengkel by UGI MOTOR</p>
+            <p class="text-white/80 text-sm mt-1">Dari Bengkel Lokal by UGI MOTOR</p>
           </div>
 
           <!-- Guarantee Badges -->
@@ -226,8 +226,8 @@ const services = [
       </div>
     </div>
 
-    <!-- Services Section -->
-    <div class="mt-16 lg:mt-20">
+    <!-- Services Section - Hidden on mobile -->
+    <div class="hidden lg:block mt-16 lg:mt-20">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {services.map((service, index) => (
           <div class={`glass-service p-5 md:p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-white/15 animate-fade-in-up stagger-${index + 1}`}>
