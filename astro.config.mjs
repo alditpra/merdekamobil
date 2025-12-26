@@ -14,11 +14,6 @@ export default defineConfig({
     build: {
       // Combine CSS into single file to reduce chaining
       cssCodeSplit: false,
-      // Use LightningCSS for better minification
-      cssMinify: 'lightningcss',
-    },
-    css: {
-      transformer: 'lightningcss',
     },
   },
 });
