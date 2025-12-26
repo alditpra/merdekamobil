@@ -43,7 +43,7 @@ const recommendedCars = allCars
  <main class="min-h-screen py-8">
  <div class="container-custom">
  <Breadcrumbs items={[
- { label: 'Home', href: '/' },
+ { label: 'Beranda', href: '/' },
  { label: 'Mobil Tersedia', href: '/mobil-tersedia' },
  { label: `${car.brand} ${car.model}`, href: `/mobil/${car.id}` }
  ]} />
@@ -57,7 +57,7 @@ const recommendedCars = allCars
  <img
  id="main-image"
  src={images[0]}
- alt={`${car.brand} ${car.model} ${car.year}`}
+ alt={`${car.brand} ${car.model} ${car.year} - Mobil Bekas Purwokerto`}
  class="w-full h-full object-cover"
  onerror="this.src='/placeholder-car.svg'"
  />
@@ -72,7 +72,7 @@ const recommendedCars = allCars
  >
  <img
  src={img}
- alt={`${car.brand} ${car.model} foto ${i + 1}`}
+ alt={`${car.brand} ${car.model} ${car.year} foto ${i + 1} - Merdeka Mobil Purwokerto`}
  class="w-full h-full object-cover"
  loading="lazy"
  />

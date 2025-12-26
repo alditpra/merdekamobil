@@ -1,9 +1,23 @@
 ---
+import { SITE_INFO } from '../utils/constants';
+
 interface Props {
  items: { label: string; href: string }[];
 }
 
 const { items } = Astro.props;
+
+// Generate BreadcrumbList Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    "item": item.href.startsWith('http') ? item.href : `${SITE_INFO.url}${item.href}`
+  }))
+};
 ---
 
 <nav aria-label="Breadcrumb" class="mb-8">
@@ -26,3 +40,7 @@ const { items } = Astro.props;
  ))}
  </ol>
 </nav>
+
+<!-- BreadcrumbList Schema JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
