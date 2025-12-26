@@ -25,6 +25,15 @@ const fullTitle = title === SITE_INFO.name ? title : `${title} - ${SITE_INFO.nam
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     
+    <!-- Dark mode - in head to prevent flash -->
+    <script is:inline>
+      (function() {
+        var theme = localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') document.documentElement.classList.add('dark');
+      })();
+    </script>
+    
     <!-- SEO -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -43,6 +52,9 @@ const fullTitle = title === SITE_INFO.name ? title : `${title} - ${SITE_INFO.nam
     <meta property="twitter:title" content={fullTitle} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
+    
+    <!-- Preconnect to critical third-party origins -->
+    <link rel="preconnect" href="https://res.cloudinary.com" />
     
     <!-- Fonts - Properly preloaded for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -66,45 +78,39 @@ const fullTitle = title === SITE_INFO.name ? title : `${title} - ${SITE_INFO.nam
     <slot />
     
     <script is:inline>
-      // Dark mode toggle
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
-      })();
-      
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      
-      window.localStorage.setItem('theme', theme);
+      // Save theme preference
+      var theme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      localStorage.setItem('theme', theme);
 
       // Scroll-triggered animations using Intersection Observer
-      document.addEventListener('DOMContentLoaded', () => {
-        const animatedElements = document.querySelectorAll('[data-animate]');
-        
+      // Uses requestAnimationFrame to batch DOM changes and avoid forced reflow
+      document.addEventListener('DOMContentLoaded', function() {
+        var animatedElements = document.querySelectorAll('[data-animate]');
         if (animatedElements.length === 0) return;
 
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
+        var observer = new IntersectionObserver(function(entries) {
+          var toAnimate = [];
+          entries.forEach(function(entry) {
             if (entry.isIntersecting) {
-              entry.target.classList.add('animated');
-              // Optionally unobserve after animation (one-time animation)
+              toAnimate.push(entry.target);
               observer.unobserve(entry.target);
             }
           });
+          
+          if (toAnimate.length > 0) {
+            requestAnimationFrame(function() {
+              toAnimate.forEach(function(el) {
+                el.classList.add('animated');
+              });
+            });
+          }
         }, {
-          threshold: 0.1, // Trigger when 10% of element is visible
-          rootMargin: '0px 0px -50px 0px' // Trigger slightly before element enters viewport
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
         });
 
-        animatedElements.forEach(el => observer.observe(el));
+        animatedElements.forEach(function(el) { observer.observe(el); });
       });
     </script>
   </body>
