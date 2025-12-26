@@ -69,6 +69,6 @@ export function getCarPrimaryImage(
     const imageUrl = car.image1?.trim();
     if (!imageUrl) return fallback;
 
-    // Optimize for card display (typically 400-800px wide)
-    return optimizeCloudinaryUrl(imageUrl, 800);
+    // Optimize for card display (matches 665px actual display size)
+    return optimizeCloudinaryUrl(imageUrl, 700);
 }
