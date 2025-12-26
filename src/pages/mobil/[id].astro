@@ -170,6 +170,12 @@ const recommendedCars = allCars
  <span class="text-neutral-600 dark:text-neutral-400">Warna</span>
  <span class="font-semibold">{car.color}</span>
  </div>
+ {car.bpkb && (
+ <div class="flex justify-between">
+ <span class="text-neutral-600 dark:text-neutral-400">BPKB</span>
+ <span class="font-semibold">{car.bpkb}</span>
+ </div>
+ )}
  </div>
  
  <!-- CTA Buttons -->

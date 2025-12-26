@@ -21,6 +21,7 @@ export interface Car {
     sold_date?: string;
     date_added: string;
     badge?: string; // Badge dinamis dari spreadsheet (PROMO, DP MURAH, dll)
+    bpkb?: string; // Tanggal BPKB (opsional)
 }
 
 export interface Settings {

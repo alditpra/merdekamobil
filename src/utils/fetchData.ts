@@ -60,6 +60,7 @@ function parseCarData(row: any): Car {
         sold_date: row.sold_date || '',
         date_added: row.date_added || new Date().toISOString().split('T')[0],
         badge: row.badge || '', // Badge dinamis dari spreadsheet
+        bpkb: row.bpkb || '', // Tanggal BPKB (opsional)
     };
 }
 
