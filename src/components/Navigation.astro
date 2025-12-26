@@ -37,6 +37,8 @@ const currentPath = Astro.url.pathname;
           class="w-10 h-10 md:w-12 md:h-12 object-contain"
           width="48"
           height="48"
+          fetchpriority="high"
+          decoding="async"
         />
         <div class="hidden sm:block">
           <span class="font-bold text-lg md:text-xl nav-text">{SITE_INFO.name}</span>

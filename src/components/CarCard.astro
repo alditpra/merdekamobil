@@ -18,6 +18,9 @@ const mainImage = getCarPrimaryImage(car);
       src={mainImage}
       alt={`${car.brand} ${car.model} ${car.year}`}
       loading="lazy"
+      decoding="async"
+      width="400"
+      height="300"
       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
       onerror="this.src='/placeholder-car.svg'"
     />
