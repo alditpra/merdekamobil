@@ -60,8 +60,8 @@ const services = [
   <div class="container-custom relative z-10 py-16 lg:py-20">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       
-      <!-- Left Content -->
-      <div class="space-y-6 animate-fade-in text-center lg:text-left">
+      <!-- Left Content - No animation on LCP elements for better performance -->
+      <div class="space-y-6 text-center lg:text-left">
         <!-- Promo Badge (Dynamic from Spreadsheet) -->
         {isPromoActive && (
           <div class="promo-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm font-semibold shadow-lg mt-8 sm:mt-4">
@@ -77,7 +77,7 @@ const services = [
             Temukan <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Mobil Impian</span> Anda
           </h1>
           <p class="text-base sm:text-lg md:text-xl text-white/70 max-w-xl leading-relaxed mx-auto lg:mx-0">
-            Dealer mobil bekas terpercaya di Purwokerto. <strong class="text-white/90">10+ tahun pengalaman</strong> melayani pelanggan dengan kualitas terbuka.
+            Dealer mobil bekas terpercaya di Purwokerto. <strong class="text-white/90">10+ tahun pengalaman</strong> melayani pelanggan dengan sepenuh hati.
           </p>
         </div>
 
@@ -95,7 +95,7 @@ const services = [
           <div class="w-px bg-white/20 flex-shrink-0"></div>
           <div class="text-center flex-shrink-0">
             <div class="text-xl sm:text-3xl md:text-4xl font-black text-green-400">✓</div>
-            <div class="text-xs sm:text-sm text-white/80 whitespace-nowrap">Kualitas Terjamin</div>
+            <div class="text-xs sm:text-sm text-white/80 whitespace-nowrap">Cek Kondisi</div>
           </div>
         </div>
 
@@ -137,8 +137,8 @@ const services = [
         </div>
       </div>
 
-      <!-- Right Side - Trust Badges -->
-      <div class="hidden lg:flex flex-col items-center justify-center space-y-8 animate-fade-in" style="animation-delay: 0.3s;">
+      <!-- Right Side - Trust Badges (No animation for LCP) -->
+      <div class="hidden lg:flex flex-col items-center justify-center space-y-8">
         
         <!-- Main Trust Card -->
         <div class="trust-card p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 w-full max-w-sm">
